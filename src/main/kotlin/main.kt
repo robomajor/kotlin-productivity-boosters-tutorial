@@ -1,3 +1,6 @@
+import java.time.LocalDate
+import java.time.chrono.ChronoLocalDate
+
 fun main() {
 
     println(format("mario", "example.com"))     //Calls a function with argument values.
@@ -33,6 +36,27 @@ fun main() {
     val (num, name) = Pair(1, "one")             //Destructures an instance of this class the same way as for built-in Pair.
 
     println("num = $num, name = $name")
+
+    println("Smart Casts")
+
+    val date: ChronoLocalDate? = LocalDate.now()    //Declares a nullable variable.
+
+    if (date != null) {
+        println(date.isLeapYear)                    //Smart-cast to non-nullable (thus allowing direct access to isLeapYear).
+    }
+
+    if (date != null && date.isLeapYear) {   //Smart-cast inside a condition (this is possible because, like Java, Kotlin uses short-circuiting).
+        println("It's a leap year!")
+    }
+
+    if (date == null || !date.isLeapYear) {         //Smart-cast inside a condition (also enabled by short-circuiting).
+        println("There's no Feb 29 this year...")
+    }
+
+    if (date is LocalDate) {
+        val month = date.monthValue                 //Smart-cast to the subtype LocalDate.
+        println(month)
+    }
 
 }
 
